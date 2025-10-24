@@ -1,0 +1,55 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  docs:
+    name: Deploy Documentation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build library and documentation
+        run: npm run build
+
+      - name: Check documentation build
+        run: |
+          if [ ! -d "docs" ]; then
+            echo "Documentation directory not found!"
+            exit 1
+          fi
+          echo "Documentation built successfully"
+          ls -la docs/
+
+      - name: Setup Pages
+        if: github.ref == 'refs/heads/main'
+        uses: actions/configure-pages@v3
+
+      - name: Upload to Pages
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./docs
+
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: actions/deploy-pages@v2
