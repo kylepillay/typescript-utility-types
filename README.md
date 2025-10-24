@@ -2,7 +2,12 @@
 
 A comprehensive collection of custom utility types for TypeScript projects.
 
-[![Heading Banner][banner-image]]
+<img
+    src="banner.png" 
+    width=90%
+    title="TypeScript Utility Types"
+    alt="TypeScript Utility Types"
+/>
 
 ## Installation
 
