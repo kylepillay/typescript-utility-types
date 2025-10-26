@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 GitHub Discussions
+    url: https://github.com/kylepillay/typescript-utility-types/discussions
+    about: Ask questions, share ideas, or discuss the library
+  - name: 📚 Documentation
+    url: https://github.com/kylepillay/typescript-utility-types#readme
+    about: Read the documentation and examples
+  - name: 🔒 Security Issue
+    url: https://github.com/kylepillay/typescript-utility-types/security/policy
+    about: Report a security vulnerability (private disclosure)

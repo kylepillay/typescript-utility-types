@@ -1,0 +1,60 @@
+# Configuration for actions/labeler
+# Labels PRs based on changed files
+
+# Source code changes
+'source':
+  - changed-files:
+    - any-glob-to-any-file: 'src/**/*'
+
+# Test changes
+'tests':
+  - changed-files:
+    - any-glob-to-any-file: 'test/**/*'
+
+# Documentation changes
+'documentation':
+  - changed-files:
+    - any-glob-to-any-file:
+      - '*.md'
+      - 'docs/**/*'
+      - '.github/**/*.md'
+
+# Configuration changes
+'configuration':
+  - changed-files:
+    - any-glob-to-any-file:
+      - '*.json'
+      - '*.yml'
+      - '*.yaml'
+      - 'tsconfig.json'
+      - 'tslint.json'
+      - 'rollup.config.ts'
+
+# GitHub workflows
+'github-actions':
+  - changed-files:
+    - any-glob-to-any-file: '.github/workflows/**/*'
+
+# Dependencies
+'dependencies':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'package.json'
+      - 'package-lock.json'
+      - 'yarn.lock'
+      - 'pnpm-lock.yaml'
+
+# Build system
+'build':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'rollup.config.ts'
+      - 'tsconfig.json'
+      - 'tools/**/*'
+
+# Type definitions
+'types':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'src/**/*.ts'
+      - '**/*.d.ts'

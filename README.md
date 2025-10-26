@@ -1,9 +1,16 @@
 # TypeScript Utility Types
 
+[![CI](https://github.com/kylepillay/typescript-utility-types/workflows/CI/badge.svg)](https://github.com/kylepillay/typescript-utility-types/actions/workflows/ci.yml)
+[![Coverage Status](https://coveralls.io/repos/github/kylepillay/typescript-utility-types/badge.svg?branch=main)](https://coveralls.io/github/kylepillay/typescript-utility-types?branch=main)
+[![Security](https://github.com/kylepillay/typescript-utility-types/workflows/Security/badge.svg)](https://github.com/kylepillay/typescript-utility-types/actions/workflows/security.yml)
+[![CodeQL](https://github.com/kylepillay/typescript-utility-types/workflows/CodeQL%20Security%20Scan/badge.svg)](https://github.com/kylepillay/typescript-utility-types/actions/workflows/codeql.yml)
+[![npm version](https://badge.fury.io/js/typescript-utility-types.svg)](https://www.npmjs.com/package/typescript-utility-types)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A comprehensive collection of custom utility types for TypeScript projects.
 
 <img
-    src="banner.png" 
+    src="banner.png"
     width=90%
     title="TypeScript Utility Types"
     alt="TypeScript Utility Types"
@@ -65,10 +72,6 @@ import {
 
 - **ReadonlyDeep**: Makes all nested properties readonly
 - **PartialDeep**: Makes all nested properties partial
-
-### Brand Types
-
-- **Brand**: Creates branded types for nominal typing
 
 ### Advanced Types
 
@@ -183,6 +186,8 @@ const partial: PartialNested = {
 ```
 
 ### Brand Types
+
+- **Brand**: Creates branded types for nominal typing
 
 ```typescript
 import { Brand } from 'typescript-utility-types'
@@ -382,5 +387,3 @@ MIT © Kyle Pillay
 ## Acknowledgments
 
 - Built with [TypeScript Library Starter](https://github.com/alexjoverm/typescript-library-starter)
-
-[banner-image]: banner.png

@@ -1,0 +1,35 @@
+# CODEOWNERS file for typescript-utility-types
+# This file defines who is responsible for code in this repository
+# More info: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything in the repo
+* @kylepillay
+
+# Source code
+/src/ @kylepillay
+
+# Tests
+/test/ @kylepillay
+
+# Documentation
+/docs/ @kylepillay
+*.md @kylepillay
+
+# Configuration files
+*.json @kylepillay
+*.yml @kylepillay
+*.yaml @kylepillay
+tsconfig.json @kylepillay
+tslint.json @kylepillay
+rollup.config.ts @kylepillay
+
+# GitHub workflows and configuration
+/.github/ @kylepillay
+/.github/workflows/ @kylepillay
+
+# Build and tooling
+/tools/ @kylepillay
+
+# Package management
+package.json @kylepillay
+package-lock.json @kylepillay

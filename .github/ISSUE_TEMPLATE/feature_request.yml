@@ -1,0 +1,88 @@
+name: Feature Request
+description: Suggest a new utility type or enhancement
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new feature! Please provide as much detail as possible.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Feature Description
+      description: Describe the utility type or feature you'd like to see added
+      placeholder: A clear and concise description of the feature
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: Explain the problem this feature would solve or the use case it addresses
+      placeholder: |
+        Describe a real-world scenario where this utility type would be useful.
+        What problem does it solve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-api
+    attributes:
+      label: Proposed API
+      description: Show how you envision the API for this utility type
+      placeholder: |
+        ```typescript
+        // Example usage
+        type MyType = NewUtilityType<SomeType>
+
+        // Expected result
+        type Result = { ... }
+        ```
+      render: typescript
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Have you considered any alternative solutions or workarounds?
+      placeholder: Describe any alternative approaches you've considered
+
+  - type: textarea
+    id: similar-types
+    attributes:
+      label: Similar Types in Other Libraries
+      description: Are there similar utility types in other libraries (ts-toolbelt, type-fest, utility-types)?
+      placeholder: |
+        If this exists in another library, please provide a link or example.
+        This helps us understand existing implementations.
+
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: Complexity
+      description: How complex do you think this feature would be to implement?
+      options:
+        - Simple (basic type transformation)
+        - Moderate (requires conditional types)
+        - Complex (requires advanced type manipulation)
+        - Not sure
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Checklist
+      description: Please confirm the following
+      options:
+        - label: I have searched existing issues to ensure this is not a duplicate
+          required: true
+        - label: This feature aligns with the library's goal of providing utility types
+          required: true
+        - label: I would be willing to contribute a PR for this feature
+          required: false

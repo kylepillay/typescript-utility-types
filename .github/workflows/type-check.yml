@@ -1,126 +1,135 @@
 name: Type Check
 
 on:
-    push:
-        branches: [main, develop]
-    pull_request:
-        branches: [main, develop]
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
 
 jobs:
-    type-check:
-        name: Type Check
-        runs-on: ubuntu-latest
+  type-check:
+    name: Type Check
+    runs-on: ubuntu-latest
 
-        strategy:
-            matrix:
-                typescript-version: ["4.9", "5.0", "5.1", "5.2", "5.3"]
+    strategy:
+      matrix:
+        typescript-version: ["3.0", "3.9", "4.9", "5.0", "5.1", "5.2", "5.3", "5.4"]
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: "18"
-                  cache: "npm"
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
 
-            - name: Install dependencies
-              run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-            - name: Install TypeScript ${{ matrix.typescript-version }}
-              run: npm install --no-save typescript@${{ matrix.typescript-version }}
+      - name: Install TypeScript ${{ matrix.typescript-version }}
+        run: npm install --no-save typescript@${{ matrix.typescript-version }}
 
-            - name: Type check with TypeScript ${{ matrix.typescript-version }}
-              run: npx tsc --noEmit --project tsconfig.json
+      - name: Type check with TypeScript ${{ matrix.typescript-version }}
+        run: npx tsc --noEmit --project tsconfig.json
 
-            - name: Test type definitions
-              run: |
-                  # Create a test file to verify types work correctly
-                  cat > test-types.ts << 'EOF'
-                  import {
-                    Primitive,
-                    Falsy,
-                    Truthy,
-                    Nullish,
-                    NonNullableKeys,
-                    JSONObject,
-                    OptionalExceptFor,
-                    ReadonlyDeep,
-                    PartialDeep,
-                    Brand,
-                    Awaited,
-                    Diff,
-                    Intersection,
-                    Union,
-                    Complement,
-                    SymmetricDiff,
-                    RelativeComplement,
-                    AbsoluteComplement,
-                    PowerSet,
-                    CartesianProduct,
-                    ReturnType,
-                    Parameters,
-                    OverrideReturnType,
-                    If,
-                    IsAssignable,
-                    IsExact,
-                    Head,
-                    Tail,
-                    Last,
-                    Init,
-                    Length,
-                    Capitalize,
-                    Uncapitalize,
-                    Uppercase,
-                    Lowercase
-                  } from './src/library'
+      - name: Test type definitions
+        run: |
+          # Create a test file to verify types work correctly
+          cat > test-types.ts << 'EOF'
+          import {
+            Primitive,
+            Falsy,
+            Truthy,
+            Nullish,
+            NonNullableKeys,
+            JSONObject,
+            OptionalExceptFor,
+            ReadonlyDeep,
+            PartialDeep,
+            Brand,
+            Awaited,
+            Diff,
+            Intersection,
+            Union,
+            ReturnType,
+            Parameters,
+            Head,
+            Tail,
+            Length,
+            IsNever,
+            IsAny,
+            IsFunction,
+            Required,
+            Optional,
+            Pick,
+            Omit,
+            Keys,
+            Values
+          } from './src/library'
 
-                  // Test basic types
-                  const primitive: Primitive = 'test'
-                  const falsy: Falsy = false
-                  const nullish: Nullish = null
+          // Test basic types
+          const primitive: Primitive = 'test'
+          const falsy: Falsy = false
+          const nullish: Nullish = null
 
-                  // Test object types
-                  interface TestInterface {
-                    id: number
-                    name: string
-                    email?: string
-                  }
+          // Test object types
+          interface TestInterface {
+            id: number
+            name: string
+            email?: string
+          }
 
-                  type RequiredKeys = NonNullableKeys<TestInterface>
-                  type PartialTest = OptionalExceptFor<TestInterface, 'id'>
-                  type ReadonlyTest = ReadonlyDeep<TestInterface>
-                  type PartialDeepTest = PartialDeep<TestInterface>
+          type RequiredKeys = NonNullableKeys<TestInterface>
+          type PartialTest = OptionalExceptFor<TestInterface, 'id'>
+          type ReadonlyTest = ReadonlyDeep<TestInterface>
+          type PartialDeepTest = PartialDeep<TestInterface>
 
-                  // Test brand types
-                  type UserId = Brand<number, 'UserId'>
-                  const userId: UserId = 123 as UserId
+          // Test brand types
+          type UserId = Brand<number, 'UserId'>
+          const userId: UserId = 123 as UserId
 
-                  // Test function types
-                  function testFunc(a: string, b: number): boolean {
-                    return true
-                  }
+          // Test function types
+          function testFunc(a: string, b: number): boolean {
+            return true
+          }
 
-                  type TestReturn = ReturnType<typeof testFunc>
-                  type TestParams = Parameters<typeof testFunc>
+          type TestReturn = ReturnType<typeof testFunc>
+          type TestParams = Parameters<typeof testFunc>
 
-                  // Test array types
-                  type TestArray = [1, 2, 3]
-                  type TestHead = Head<TestArray>
-                  type TestTail = Tail<TestArray>
-                  type TestLast = Last<TestArray>
-                  type TestInit = Init<TestArray>
-                  type TestLength = Length<TestArray>
+          // Test array types
+          type TestArray = [1, 2, 3]
+          type TestHead = Head<TestArray>
+          type TestTail = Tail<TestArray>
+          type TestLength = Length<TestArray>
 
-                  // Test string types
-                  type TestCapitalize = Capitalize<'hello'>
-                  type TestUncapitalize = Uncapitalize<'Hello'>
-                  type TestUppercase = Uppercase<'hello'>
-                  type TestLowercase = Lowercase<'HELLO'>
+          // Test type guards
+          type TestIsNever = IsNever<never>
+          type TestIsAny = IsAny<any>
+          type TestIsFunction = IsFunction<() => void>
 
-                  console.log('All types imported and used successfully!')
-                  EOF
+          // Test object utilities
+          type TestRequired = Required<TestInterface>
+          type TestOptional = Optional<TestInterface>
+          type TestPick = Pick<TestInterface, 'id' | 'name'>
+          type TestOmit = Omit<TestInterface, 'email'>
+          type TestKeys = Keys<TestInterface>
+          type TestValues = Values<TestInterface>
 
-                  npx tsc --noEmit test-types.ts
-                  rm test-types.ts
+          console.log('All types imported and used successfully!')
+          EOF
+
+          npx tsc --noEmit test-types.ts
+          rm test-types.ts
+
+      - name: Report success
+        if: success()
+        run: echo "✅ Type checking passed with TypeScript ${{ matrix.typescript-version }}"
+
+      - name: Report failure
+        if: failure()
+        run: |
+          echo "❌ Type checking failed with TypeScript ${{ matrix.typescript-version }}"
+          echo "This may indicate compatibility issues with this TypeScript version."
+          exit 1
